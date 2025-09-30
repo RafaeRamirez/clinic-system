@@ -21,7 +21,7 @@ namespace ClinicApp.Models
 
         public virtual void MakeSound()
         {
-            Console.WriteLine($"{Name} makes a sound.");
+            Console.WriteLine($"{Name} hace un sonido.");
         }
     }
 }

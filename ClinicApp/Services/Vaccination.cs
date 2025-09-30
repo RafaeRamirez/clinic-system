@@ -4,12 +4,11 @@ namespace ClinicApp.Services
 {
     public class Vaccination : VeterinaryService
     {
-        public Vaccination() : base("Vaccination") { }
+        public Vaccination() : base("Vacunación") { }
 
         public override void Attend()
         {
-            Console.WriteLine("Applying the corresponding vaccine to the pet.");
+            Console.WriteLine("Aplicando la vacuna correspondiente.");
         }
     }
 }
-

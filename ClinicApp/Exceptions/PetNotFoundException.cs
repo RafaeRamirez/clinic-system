@@ -7,3 +7,4 @@ namespace ClinicApp.Exceptions
         public PetNotFoundException(string message) : base(message) { }
     }
 }
+

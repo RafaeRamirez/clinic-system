@@ -7,71 +7,72 @@ namespace ClinicApp.Models
 {
     public class Patient : IRegistrable, INotificable
     {
-        private string name;
-        private int age;
-        private string address;
-        private string phone = string.Empty; 
-        private List<Pet> pets;
+        public int PatientId { get; private set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Address { get; set; }
+        private string phone;
+        public List<Pet> Pets { get; private set; } = new List<Pet>();
 
-        public string Name { get => name; set => name = value; }
-        public int Age { get => age; set { if (value >= 0) age = value; } }
-        public string Address { get => address; set => address = value; }
+        public string Phone => "Protegido (confidencial)";
 
-        // Teléfono protegido
-        public string Phone => "Protected (confidential)";
-
-        public List<Pet> Pets => pets;
-
-        public Patient(string name, int age, string address, string phone)
+        public Patient(int id, string name, int age, string address, string phone)
         {
+            PatientId = id;
             Name = name;
             Age = age;
             Address = address;
             this.phone = phone;
-            pets = new List<Pet>();
+        }
+
+        public void Register()
+        {
+            Console.WriteLine($"Paciente {Name} (ID: {PatientId}) registrado.");
         }
 
         public void AddPet(Pet pet)
         {
-            pets.Add(pet);
+            if (pet.OwnerId != PatientId)
+            {
+                Console.WriteLine($"⚠ La mascota {pet.Name} tiene un OwnerId distinto al paciente.");
+                return;
+            }
+            Pets.Add(pet);
         }
 
-        public Pet FindPet(string petName)
+        public Pet FindPetById(int petId)
         {
-            foreach (var pet in pets)
+            foreach (var pet in Pets)
             {
-                if (pet.Name.ToLower() == petName.ToLower())
+                if (pet.PetId == petId)
                     return pet;
             }
-            throw new PetNotFoundException($"The pet '{petName}' was not found for patient {Name}.");
+            throw new PetNotFoundException($"La mascota con ID {petId} no fue encontrada.");
+        }
+
+        public Pet FindPetByName(string name)
+        {
+            foreach (var pet in Pets)
+            {
+                if (pet.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    return pet;
+            }
+            throw new PetNotFoundException($"La mascota '{name}' no fue encontrada.");
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Patient: {Name}, Age: {Age}, Address: {Address}, Phone: {Phone}");
-            Console.WriteLine("Pets:");
-            foreach (var pet in pets)
+            Console.WriteLine($"\nPacienteID: {PatientId}, Nombre: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}");
+            Console.WriteLine("Mascotas:");
+            foreach (var pet in Pets)
             {
                 pet.ShowInfo();
             }
         }
 
-        // IRegistrable
-        public void Register()
-        {
-            Console.WriteLine($"Patient {Name} registered.");
-        }
-
-        // INotificable
         public void SendNotification(string message)
         {
-            Console.WriteLine($"Notification to {Name}: {message}");
-        }
-
-        // Método interno para acceder al teléfono real
-        public string GetPhoneInternal()
-        {
-            return phone;
+            Console.WriteLine($"Notificación para {Name}: {message}");
         }
     }
 }

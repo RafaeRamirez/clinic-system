@@ -6,3 +6,22 @@ Details: The input string 'yes' was not in a correct format.
 Details: The pet 'keila' was not found for patient rafael .
 
 [30/09/2025 5:35:15 p. m.] INFO: Program finished.
+[30/09/2025 6:23:39 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:24:19 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:24:24 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:25:04 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:25:06 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:29:37 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:29:59 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:32:41 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:40:19 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:40:36 p. m.] ERROR: Formato de entrada incorrecto
+Details: The input string 'miguel ' was not in a correct format.
+
+[30/09/2025 6:40:36 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:41:04 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:47:09 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:47:36 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:48:23 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:48:40 p. m.] INFO: Operación finalizada.
+[30/09/2025 6:48:49 p. m.] INFO: Operación finalizada.

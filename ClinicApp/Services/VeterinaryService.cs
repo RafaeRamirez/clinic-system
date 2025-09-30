@@ -1,6 +1,5 @@
 namespace ClinicApp.Services
 {
-
     public abstract class VeterinaryService
     {
         public string ServiceName { get; set; }

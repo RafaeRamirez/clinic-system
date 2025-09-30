@@ -1,95 +1,125 @@
 ﻿using System;
-using ClinicApp.Models;     
-using ClinicApp.Services;   
-using ClinicApp.Exceptions; 
-using ClinicApp.Utils;      
+using ClinicApp.Models;
+using ClinicApp.Services;
+using ClinicApp.Exceptions;
+using ClinicApp.Utils;
+
 namespace ClinicApp
 {
     public class Program
     {
+        private static Patient? patient;
+
         public static void Main(string[] args)
         {
-            try
+            bool running = true;
+
+            while (running)
             {
-                Console.WriteLine("=== Sistema de Clínicas Veterinarias ===");
+                MostrarMenu();
+                string option = Console.ReadLine()!;
 
-
-                Console.Write("Ingrese el nombre del paciente: ");
-                string patientName = Console.ReadLine()!;
-
-                Console.Write("Ingrese la edad del paciente: ");
-                int patientAge = int.Parse(Console.ReadLine()!);
-
-                Console.Write("Introduzca la dirección del paciente: ");
-                string patientAddress = Console.ReadLine()!;
-
-                Console.Write("Ingrese el teléfono del paciente: ");
-                string patientPhone = Console.ReadLine()!;
-
-                Patient patient = new Patient(patientName, patientAge, patientAddress, patientPhone);
-                patient.Register();
-
-                Console.WriteLine("\n¿Cuántas mascotas tiene este paciente?");
-                int petCount = int.Parse(Console.ReadLine()!);
-
-                for (int i = 0; i < petCount; i++)
+                try
                 {
-                    Console.WriteLine($"\n--- Mascota {i + 1} ---");
-                    Console.Write("Nombre de la mascota:");
-                    string petName = Console.ReadLine()!;
+                    switch (option)
+                    {
+                        case "1":
+                            patient = CrearPaciente();
+                            break;
 
-                    Console.Write("Edad de la mascota: ");
-                    int petAge = int.Parse(Console.ReadLine()!);
+                        case "2":
+                            if (patient != null) PetService.AddPet(patient);
+                            else Console.WriteLine("⚠ Primero registre un paciente.");
+                            break;
 
-                    Console.Write("Especies de mascotas (perro, gato, pájaro...): ");
-                    string petSpecies = Console.ReadLine()!;
+                        case "3":
+                            patient?.ShowInfo();
+                            break;
 
-                    Console.Write("Raza de mascota: ");
-                    string petBreed = Console.ReadLine()!;
+                        case "4":
+                            if (patient != null)
+                            {
+                                Console.WriteLine("1. Buscar por ID");
+                                Console.WriteLine("2. Buscar por nombre");
+                                string opt = Console.ReadLine()!;
+                                if (opt == "1") PetService.FindPetById(patient);
+                                else if (opt == "2") PetService.FindPetByName(patient);
+                                else Console.WriteLine("⚠ Opción inválida.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("⚠ No hay paciente registrado.");
+                            }
+                            break;
 
-                    Pet pet = new Pet(petName, petAge, petSpecies, petBreed, patient.Name);
-                    patient.AddPet(pet);
-                    pet.Register();
+                        case "5":
+                            VeterinaryService checkup = new GeneralCheckup();
+                            VeterinaryService vaccination = new Vaccination();
+                            checkup.Attend();
+                            vaccination.Attend();
+                            break;
+
+                        case "6":
+                            running = false;
+                            Console.WriteLine("👋 Saliendo del sistema...");
+                            break;
+
+                        default:
+                            Console.WriteLine("⚠ Opción no válida.");
+                            break;
+                    }
                 }
-
-                Console.WriteLine("\n--- Información del paciente ---");
-                patient.ShowInfo();
-
-                Console.WriteLine("\n--- Sonidos de mascotas ---");
-                foreach (var pet in patient.Pets)
+                catch (PetNotFoundException ex)
                 {
-                    pet.MakeSound();
+                    Logger.LogError("Mascota no encontrada", ex);
                 }
+                catch (FormatException ex)
+                {
+                    Logger.LogError("Formato de entrada incorrecto", ex);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError("Error inesperado", ex);
+                }
+                finally
+                {
+                    Logger.LogInfo("Operación finalizada.");
+                }
+            }
+        }
 
-                Console.WriteLine("\n--- Servicios veterinarios ---");
-                VeterinaryService checkup = new GeneralCheckup();
-                VeterinaryService vaccination = new Vaccination();
-                checkup.Attend();
-                vaccination.Attend();
+        private static Patient CrearPaciente()
+        {
+            Console.Write("ID del paciente: ");
+            int id = int.Parse(Console.ReadLine()!);
 
-      
-                Console.Write("\nBuscar una mascota por nombre: ");
-                string searchName = Console.ReadLine()!;
+            Console.Write("Nombre: ");
+            string name = Console.ReadLine()!;
 
-                Pet foundPet = patient.FindPet(searchName);
-                Logger.LogInfo($"Mascota encontrada: {foundPet.Name}, Especies: {foundPet.Species}");
-            }
-            catch (PetNotFoundException ex)
-            {
-                Logger.LogError("La búsqueda de mascotas falló", ex);
-            }
-            catch (FormatException ex)
-            {
-                Logger.LogError("Formato de entrada no válido", ex);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("Se produjo un error inesperado", ex);
-            }
-            finally
-            {
-                Logger.LogInfo("Programa terminado.");
-            }
+            Console.Write("Edad: ");
+            int age = int.Parse(Console.ReadLine()!);
+
+            Console.Write("Dirección: ");
+            string address = Console.ReadLine()!;
+
+            Console.Write("Teléfono: ");
+            string phone = Console.ReadLine()!;
+
+            Patient patient = new Patient(id, name, age, address, phone);
+            patient.Register();
+            return patient;
+        }
+
+        private static void MostrarMenu()
+        {
+            Console.WriteLine("\n=== Menú Principal ===");
+            Console.WriteLine("1. Registrar paciente");
+            Console.WriteLine("2. Agregar mascota");
+            Console.WriteLine("3. Mostrar información del paciente");
+            Console.WriteLine("4. Buscar mascota");
+            Console.WriteLine("5. Servicios veterinarios");
+            Console.WriteLine("6. Salir");
+            Console.Write("👉 Elige una opción: ");
         }
     }
 }

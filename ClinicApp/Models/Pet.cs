@@ -5,38 +5,39 @@ namespace ClinicApp.Models
 {
     public class Pet : Animal, IRegistrable
     {
-        private string breed;
-        private string owner;
+        public int PetId { get; private set; }
+        public int OwnerId { get; private set; }
+        public string Breed { get; set; }
+        public string OwnerName { get; set; }
 
-        public string Breed { get => breed; set => breed = value; }
-        public string Owner { get => owner; set => owner = value; }
-        
-        public Pet(string name, int age, string species, string breed, string owner)
+        public Pet(int id, string name, int age, string species, string breed, int ownerId, string ownerName)
             : base(name, age, species)
         {
+            PetId = id;
             Breed = breed;
-            Owner = owner;
+            OwnerId = ownerId;
+            OwnerName = ownerName;
         }
 
         public override void MakeSound()
         {
             switch (Species.ToLower())
             {
-                case "dog": Console.WriteLine($"{Name} says Woof!"); break;
-                case "cat": Console.WriteLine($"{Name} says Meow!"); break;
-                case "bird": Console.WriteLine($"{Name} says Tweet!"); break;
-                default: Console.WriteLine($"{Name} makes an unknown sound."); break;
+                case "perro": Console.WriteLine($"{Name} dice Guau!"); break;
+                case "gato": Console.WriteLine($"{Name} dice Miau!"); break;
+                case "pajaro": Console.WriteLine($"{Name} dice Pío!"); break;
+                default: Console.WriteLine($"{Name} hace un sonido desconocido."); break;
             }
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Pet: {Name}, Species: {Species}, Breed: {Breed}, Owner: {Owner}");
+            Console.WriteLine($"PetID: {PetId}, Nombre: {Name}, Especie: {Species}, Raza: {Breed}, DueñoID: {OwnerId}, Dueño: {OwnerName}");
         }
 
         public void Register()
         {
-            Console.WriteLine($"Pet {Name} registered for {Owner}.");
+            Console.WriteLine($"Mascota {Name} (ID: {PetId}) registrada para paciente {OwnerName} (ID: {OwnerId}).");
         }
     }
 }
