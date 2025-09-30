@@ -11,40 +11,40 @@ namespace ClinicApp
         {
             try
             {
-                Console.WriteLine("=== Veterinary Clinic System ===");
+                Console.WriteLine("=== Sistema de Clínicas Veterinarias ===");
 
-                // Ingreso de datos del paciente
-                Console.Write("Enter patient name: ");
+
+                Console.Write("Ingrese el nombre del paciente: ");
                 string patientName = Console.ReadLine()!;
 
-                Console.Write("Enter patient age: ");
+                Console.Write("Ingrese la edad del paciente: ");
                 int patientAge = int.Parse(Console.ReadLine()!);
 
-                Console.Write("Enter patient address: ");
+                Console.Write("Introduzca la dirección del paciente: ");
                 string patientAddress = Console.ReadLine()!;
 
-                Console.Write("Enter patient phone: ");
+                Console.Write("Ingrese el teléfono del paciente: ");
                 string patientPhone = Console.ReadLine()!;
 
                 Patient patient = new Patient(patientName, patientAge, patientAddress, patientPhone);
                 patient.Register();
 
-                Console.WriteLine("\nHow many pets does this patient have?");
+                Console.WriteLine("\n¿Cuántas mascotas tiene este paciente?");
                 int petCount = int.Parse(Console.ReadLine()!);
 
                 for (int i = 0; i < petCount; i++)
                 {
-                    Console.WriteLine($"\n--- Pet {i + 1} ---");
-                    Console.Write("Pet name: ");
+                    Console.WriteLine($"\n--- Mascota {i + 1} ---");
+                    Console.Write("Nombre de la mascota:");
                     string petName = Console.ReadLine()!;
 
-                    Console.Write("Pet age: ");
+                    Console.Write("Edad de la mascota: ");
                     int petAge = int.Parse(Console.ReadLine()!);
 
-                    Console.Write("Pet species (Dog, Cat, Bird...): ");
+                    Console.Write("Especies de mascotas (perro, gato, pájaro...): ");
                     string petSpecies = Console.ReadLine()!;
 
-                    Console.Write("Pet breed: ");
+                    Console.Write("Raza de mascota: ");
                     string petBreed = Console.ReadLine()!;
 
                     Pet pet = new Pet(petName, petAge, petSpecies, petBreed, patient.Name);
@@ -52,43 +52,43 @@ namespace ClinicApp
                     pet.Register();
                 }
 
-                Console.WriteLine("\n--- Patient Information ---");
+                Console.WriteLine("\n--- Información del paciente ---");
                 patient.ShowInfo();
 
-                Console.WriteLine("\n--- Pet Sounds (Polymorphism) ---");
+                Console.WriteLine("\n--- Sonidos de mascotas ---");
                 foreach (var pet in patient.Pets)
                 {
                     pet.MakeSound();
                 }
 
-                Console.WriteLine("\n--- Veterinary Services ---");
+                Console.WriteLine("\n--- Servicios veterinarios ---");
                 VeterinaryService checkup = new GeneralCheckup();
                 VeterinaryService vaccination = new Vaccination();
                 checkup.Attend();
                 vaccination.Attend();
 
-                // Ejemplo de búsqueda de mascota
-                Console.Write("\nSearch a pet by name: ");
+      
+                Console.Write("\nBuscar una mascota por nombre: ");
                 string searchName = Console.ReadLine()!;
 
                 Pet foundPet = patient.FindPet(searchName);
-                Logger.LogInfo($"Pet found: {foundPet.Name}, Species: {foundPet.Species}");
+                Logger.LogInfo($"Mascota encontrada: {foundPet.Name}, Especies: {foundPet.Species}");
             }
             catch (PetNotFoundException ex)
             {
-                Logger.LogError("Pet search failed", ex);
+                Logger.LogError("La búsqueda de mascotas falló", ex);
             }
             catch (FormatException ex)
             {
-                Logger.LogError("Invalid input format", ex);
+                Logger.LogError("Formato de entrada no válido", ex);
             }
             catch (Exception ex)
             {
-                Logger.LogError("Unexpected error occurred", ex);
+                Logger.LogError("Se produjo un error inesperado", ex);
             }
             finally
             {
-                Logger.LogInfo("Program finished.");
+                Logger.LogInfo("Programa terminado.");
             }
         }
     }

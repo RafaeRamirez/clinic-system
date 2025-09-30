@@ -1,0 +1,8 @@
+[30/09/2025 5:29:51 p. m.] ERROR: Invalid input format
+Details: The input string 'yes' was not in a correct format.
+
+[30/09/2025 5:29:51 p. m.] INFO: Program finished.
+[30/09/2025 5:35:15 p. m.] ERROR: Pet search failed
+Details: The pet 'keila' was not found for patient rafael .
+
+[30/09/2025 5:35:15 p. m.] INFO: Program finished.
