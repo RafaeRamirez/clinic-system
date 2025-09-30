@@ -1,0 +1,15 @@
+C:\Users\User\Desktop\clinic-system\ClinicApp\bin\Debug\net9.0\ClinicApp.exe
+C:\Users\User\Desktop\clinic-system\ClinicApp\bin\Debug\net9.0\ClinicApp.deps.json
+C:\Users\User\Desktop\clinic-system\ClinicApp\bin\Debug\net9.0\ClinicApp.runtimeconfig.json
+C:\Users\User\Desktop\clinic-system\ClinicApp\bin\Debug\net9.0\ClinicApp.dll
+C:\Users\User\Desktop\clinic-system\ClinicApp\bin\Debug\net9.0\ClinicApp.pdb
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.AssemblyInfo.cs
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.sourcelink.json
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.dll
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\refint\ClinicApp.dll
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.pdb
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ClinicApp.genruntimeconfig.cache
+C:\Users\User\Desktop\clinic-system\ClinicApp\obj\Debug\net9.0\ref\ClinicApp.dll
