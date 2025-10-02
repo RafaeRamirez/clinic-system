@@ -1,4 +1,4 @@
-namespace ClinicApp.Interfaces
+namespace VetClinic.Interfaces
 {
     public interface IRegistrable
     {

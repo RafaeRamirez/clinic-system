@@ -1,14 +1,17 @@
 ﻿using System;
-using ClinicApp.Models;
-using ClinicApp.Services;
-using ClinicApp.Exceptions;
-using ClinicApp.Utils;
+using System.Collections.Generic;
+using VetClinic.Models;
+using VetClinic.Services;
+using VetClinic.Exceptions;
+using VetClinic.Utils;
 
-namespace ClinicApp
+namespace VetClinic
 {
     public class Program
     {
-        private static Patient? patient;
+
+        private static readonly List<Patient> patients = new List<Patient>();
+        private static readonly PatientService patientService = new PatientService();
 
         public static void Main(string[] args)
         {
@@ -16,7 +19,7 @@ namespace ClinicApp
 
             while (running)
             {
-                MostrarMenu();
+                ShowMenu();
                 string option = Console.ReadLine()!;
 
                 try
@@ -24,102 +27,69 @@ namespace ClinicApp
                     switch (option)
                     {
                         case "1":
-                            patient = CrearPaciente();
+                            patientService.Register(); 
+                  
                             break;
 
                         case "2":
-                            if (patient != null) PetService.AddPet(patient);
-                            else Console.WriteLine("⚠ Primero registre un paciente.");
-                            break;
+                            // patientService.RegisterPetForPatientById(); 
 
                         case "3":
-                            patient?.ShowInfo();
+                            patientService.ShowPatients(patients);
                             break;
 
                         case "4":
-                            if (patient != null)
-                            {
-                                Console.WriteLine("1. Buscar por ID");
-                                Console.WriteLine("2. Buscar por nombre");
-                                string opt = Console.ReadLine()!;
-                                if (opt == "1") PetService.FindPetById(patient);
-                                else if (opt == "2") PetService.FindPetByName(patient);
-                                else Console.WriteLine("⚠ Opción inválida.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("⚠ No hay paciente registrado.");
-                            }
+                            //  patientService.FindPet();
                             break;
 
                         case "5":
-                            VeterinaryService checkup = new GeneralCheckup();
-                            VeterinaryService vaccination = new Vaccination();
-                            checkup.Attend();
-                            vaccination.Attend();
+                            //  patientService.MakePetsSounds();
                             break;
 
                         case "6":
+                            //  patientService.ShowServices();
+                            break;
+
+                        case "7":
                             running = false;
-                            Console.WriteLine("👋 Saliendo del sistema...");
+                            Console.WriteLine("👋 Exiting system...");
                             break;
 
                         default:
-                            Console.WriteLine("⚠ Opción no válida.");
+                            Console.WriteLine("⚠ Invalid option, please try again.");
                             break;
                     }
                 }
                 catch (PetNotFoundException ex)
                 {
-                    Logger.LogError("Mascota no encontrada", ex);
+                    Logger.LogError("Pet not found", ex);
                 }
                 catch (FormatException ex)
                 {
-                    Logger.LogError("Formato de entrada incorrecto", ex);
+                    Logger.LogError("Invalid input format", ex);
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError("Error inesperado", ex);
+                    Logger.LogError("Unexpected error", ex);
                 }
                 finally
                 {
-                    Logger.LogInfo("Operación finalizada.");
+                    Logger.LogInfo("Operation finished.");
                 }
             }
         }
 
-        private static Patient CrearPaciente()
+        private static void ShowMenu()
         {
-            Console.Write("ID del paciente: ");
-            int id = int.Parse(Console.ReadLine()!);
-
-            Console.Write("Nombre: ");
-            string name = Console.ReadLine()!;
-
-            Console.Write("Edad: ");
-            int age = int.Parse(Console.ReadLine()!);
-
-            Console.Write("Dirección: ");
-            string address = Console.ReadLine()!;
-
-            Console.Write("Teléfono: ");
-            string phone = Console.ReadLine()!;
-
-            Patient patient = new Patient(id, name, age, address, phone);
-            patient.Register();
-            return patient;
-        }
-
-        private static void MostrarMenu()
-        {
-            Console.WriteLine("\n=== Menú Principal ===");
-            Console.WriteLine("1. Registrar paciente");
-            Console.WriteLine("2. Agregar mascota");
-            Console.WriteLine("3. Mostrar información del paciente");
-            Console.WriteLine("4. Buscar mascota");
-            Console.WriteLine("5. Servicios veterinarios");
-            Console.WriteLine("6. Salir");
-            Console.Write("👉 Elige una opción: ");
+            Console.WriteLine("\n=== Veterinary Clinic Menu ===");
+            Console.WriteLine("1. Register Patient");
+            Console.WriteLine("2. Register Pet");
+            Console.WriteLine("3. Show Patients");
+            Console.WriteLine("4. Search Pet");
+            Console.WriteLine("5. Make Pets Sounds");
+            Console.WriteLine("6. Veterinary Services");
+            Console.WriteLine("7. Exit");
+            Console.Write(" Choose an option: ");
         }
     }
 }

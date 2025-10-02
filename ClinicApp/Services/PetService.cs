@@ -1,58 +1,58 @@
 using System;
-using ClinicApp.Models;
-using ClinicApp.Exceptions;
+using System.Collections.Generic;
+using VetClinic.Interfaces;
+using VetClinic.Models;
+using VetClinic.Utils;
 
-namespace ClinicApp.Services
+namespace VetClinic.Services
 {
-    public static class PetService
+    public class PatientService : IRegistrable
     {
-        public static void AddPet(Patient patient)
-        {
-            Console.Write("ID de la mascota: ");
-            int petId = int.Parse(Console.ReadLine()!);
 
-            Console.Write("Nombre: ");
+
+        public void Register()
+
+        {
+            Console.WriteLine("\n=== Register Patient ===");
+
+            Console.Write("Enter Patient ID: ");
+            int id = int.Parse(Console.ReadLine()!);
+
+            Console.Write("Enter Name: ");
             string name = Console.ReadLine()!;
 
-            Console.Write("Edad: ");
+            Console.Write("Enter Age: ");
             int age = int.Parse(Console.ReadLine()!);
 
-            Console.Write("Especie: ");
-            string species = Console.ReadLine()!;
+            Console.Write("Enter Address: ");
+            string address = Console.ReadLine()!;
 
-            Console.Write("Raza: ");
-            string breed = Console.ReadLine()!;
+            Console.Write("Enter Phone: ");
+            string phone = Console.ReadLine()!;
 
-            Console.Write("ID del paciente dueño: ");
-            int ownerId = int.Parse(Console.ReadLine()!);
+            Patient patient = new Patient(id, name, age, address, phone);
+            patient.Register();
 
-            if (ownerId != patient.PatientId)
+            Logger.LogInfo($"Patient {patient.Name} registered successfully.");
+
+        }
+
+
+
+        public void ShowPatients(List<Patient> patients)
+        {
+            Console.WriteLine("\n=== List of Patients ===");
+
+            if (patients.Count == 0)
             {
-                Console.WriteLine($"⚠ El ID ingresado ({ownerId}) no corresponde al paciente activo (ID: {patient.PatientId}).");
+                Console.WriteLine("⚠ No patients registered.");
                 return;
             }
 
-            Pet pet = new Pet(petId, name, age, species, breed, ownerId, patient.Name);
-            patient.AddPet(pet);
-            pet.Register();
-        }
-
-        public static void FindPetById(Patient patient)
-        {
-            Console.Write("Ingrese el ID de la mascota a buscar: ");
-            int petId = int.Parse(Console.ReadLine()!);
-
-            var pet = patient.FindPetById(petId);
-            pet.ShowInfo();
-        }
-
-        public static void FindPetByName(Patient patient)
-        {
-            Console.Write("Ingrese el nombre de la mascota a buscar: ");
-            string name = Console.ReadLine()!;
-
-            var pet = patient.FindPetByName(name);
-            pet.ShowInfo();
+            foreach (var patient in patients)
+            {
+                patient.ShowInfo();
+            }
         }
     }
 }

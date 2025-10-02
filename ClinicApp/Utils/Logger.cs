@@ -1,32 +1,26 @@
 using System;
 using System.IO;
 
-namespace ClinicApp.Utils
+namespace VetClinic.Utils
 {
     public static class Logger
     {
-        private static readonly string logFile = "error_log.txt";
-
-        public static void LogError(string message, Exception ex)
-        {
-            string formattedMessage = $"[{DateTime.Now}] ERROR: {message}\nDetails: {ex.Message}\n";
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(formattedMessage);
-            Console.ResetColor();
-
-            File.AppendAllText(logFile, formattedMessage + Environment.NewLine);
-        }
+        private static readonly string logFile = "vetclinic_log.txt";
 
         public static void LogInfo(string message)
         {
-            string formattedMessage = $"[{DateTime.Now}] INFO: {message}";
+            string log = $"[INFO] {DateTime.Now}: {message}";
+            Console.WriteLine(log);
+            File.AppendAllText(logFile, log + Environment.NewLine);
+        }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(formattedMessage);
+        public static void LogError(string message, Exception ex)
+        {
+            string log = $"[ERROR] {DateTime.Now}: {message} | Exception: {ex.Message}";
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(log);
             Console.ResetColor();
-
-            File.AppendAllText(logFile, formattedMessage + Environment.NewLine);
+            File.AppendAllText(logFile, log + Environment.NewLine);
         }
     }
 }

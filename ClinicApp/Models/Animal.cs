@@ -1,27 +1,28 @@
 using System;
 
-namespace ClinicApp.Models
+namespace VetClinic.Models
 {
-    public class Animal
+    // Base abstract class
+    public abstract class Animal
     {
-        private string name;
-        private int age;
-        private string species;
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Species { get; set; }
+        public string Symptoms { get; set; }
 
-        public string Name { get => name; set => name = value; }
-        public int Age { get => age; set { if (value >= 0) age = value; } }
-        public string Species { get => species; set => species = value; }
-
-        public Animal(string name, int age, string species)
+        protected Animal(string name, int age, string species, string? symptoms = null)
         {
             Name = name;
             Age = age;
             Species = species;
+            Symptoms = string.IsNullOrWhiteSpace(symptoms) ? "None" : symptoms;
         }
 
-        public virtual void MakeSound()
+        public abstract void MakeSound();
+
+        public virtual void ShowInfo()
         {
-            Console.WriteLine($"{Name} hace un sonido.");
+            Console.WriteLine($"Animal: {Name}, Age: {Age}, Species: {Species}, Symptoms: {Symptoms}");
         }
     }
 }

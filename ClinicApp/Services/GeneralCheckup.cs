@@ -1,14 +1,14 @@
 using System;
 
-namespace ClinicApp.Services
+namespace VetClinic.Models
 {
     public class GeneralCheckup : VeterinaryService
     {
-        public GeneralCheckup() : base("Consulta General") { }
+        public GeneralCheckup() : base("General Checkup") { }
 
         public override void Attend()
         {
-            Console.WriteLine("Realizando un chequeo general de salud.");
+            Console.WriteLine("Performing a general health checkup...");
         }
     }
 }

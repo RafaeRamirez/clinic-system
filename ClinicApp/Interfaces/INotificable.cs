@@ -1,7 +1,7 @@
-namespace ClinicApp.Interfaces
+namespace VetClinic.Interfaces
 {
-    public interface INotificable
+    public interface INotifiable
     {
-        void SendNotification(string message);
+        void Notify(string message);
     }
 }

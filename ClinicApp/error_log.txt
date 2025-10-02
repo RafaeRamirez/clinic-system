@@ -25,3 +25,8 @@ Details: The input string 'miguel ' was not in a correct format.
 [30/09/2025 6:48:23 p. m.] INFO: Operación finalizada.
 [30/09/2025 6:48:40 p. m.] INFO: Operación finalizada.
 [30/09/2025 6:48:49 p. m.] INFO: Operación finalizada.
+[30/09/2025 7:03:03 p. m.] INFO: Operación finalizada.
+[30/09/2025 7:03:14 p. m.] INFO: Operación finalizada.
+[30/09/2025 7:03:17 p. m.] INFO: Operación finalizada.
+[30/09/2025 7:03:25 p. m.] INFO: Operación finalizada.
+[30/09/2025 7:03:30 p. m.] INFO: Operación finalizada.

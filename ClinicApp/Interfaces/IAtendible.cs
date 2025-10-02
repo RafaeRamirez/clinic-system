@@ -1,6 +1,6 @@
-namespace ClinicApp.Interfaces
+namespace VetClinic.Interfaces
 {
-    public interface IAtendible
+    public interface IAttendable
     {
         void Attend();
     }
