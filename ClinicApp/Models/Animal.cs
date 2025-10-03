@@ -15,14 +15,14 @@ namespace VetClinic.Models
             Name = name;
             Age = age;
             Species = species;
-            Symptoms = string.IsNullOrWhiteSpace(symptoms) ? "None" : symptoms;
+            Symptoms = string.IsNullOrWhiteSpace(symptoms) ? "Ninguna" : symptoms;
         }
 
         public abstract void MakeSound();
 
         public virtual void ShowInfo()
         {
-            Console.WriteLine($"Animal: {Name}, Age: {Age}, Species: {Species}, Symptoms: {Symptoms}");
+            Console.WriteLine($"Animal: {Name}, Edad: {Age}, Especies: {Species}, Síntomas: {Symptoms}");
         }
     }
 }

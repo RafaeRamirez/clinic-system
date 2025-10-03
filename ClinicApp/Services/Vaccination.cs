@@ -4,11 +4,11 @@ namespace VetClinic.Models
 {
     public class Vaccination : VeterinaryService
     {
-        public Vaccination() : base("Vaccination") { }
+        public Vaccination() : base("Vacunación") { }
 
         public override void Attend()
         {
-            Console.WriteLine("Applying the vaccine to the pet...");
+            Console.WriteLine("Aplicación de la vacuna a la mascota...");
         }
     }
 }

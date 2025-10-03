@@ -25,7 +25,7 @@ namespace VetClinic.Models
 
         public void ShowInfo()
         {
-            Console.WriteLine($"🐶 Pet: {Name}, Species: {Species}, Breed: {Breed}, Age: {Age}, Symptom: {Symptom ?? "None"}");
+            Console.WriteLine($"🐶 Mascota: {Name}, Especies: {Species}, Criar: {Breed}, Edad: {Age}, Síntoma: {Symptom ?? "Ninguno"}");
         }
     }
 }

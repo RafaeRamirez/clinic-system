@@ -11,7 +11,7 @@ namespace VetClinic.Models
             ServiceName = serviceName;
         }
 
-        // Método abstracto
+ 
         public abstract void Attend();
     }
 }

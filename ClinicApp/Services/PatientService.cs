@@ -10,57 +10,63 @@ namespace VetClinic.Services
     {
         public Patient? Register()
         {
-            Console.WriteLine("\n=== Register Patient ===");
+            Console.WriteLine("\n=== Registrar paciente ===");
 
-            Console.Write("Enter Patient ID: ");
+            Console.Write("Ingrese el ID del paciente: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine("❌ Invalid ID. Registration aborted.");
+                Console.WriteLine(" ID inválida. Registro cancelado.");
                 return null!;
             }
 
-            Console.Write("Enter Name: ");
+            Console.Write("Introducir nombre: ");
             string name = Console.ReadLine()!;
 
-            Console.Write("Enter Age: ");
+            Console.Write("Ingrese edad: ");
             if (!int.TryParse(Console.ReadLine(), out int age))
             {
-                Console.WriteLine("❌ Invalid age. Registration aborted.");
+                Console.WriteLine(" Edad no válida. Registro cancelado.");
                 return null!;
             }
 
-            Console.Write("Enter Address: ");
+            Console.Write("Introducir dirección: ");
             string address = Console.ReadLine()!;
 
-            Console.Write("Enter Phone: ");
+            Console.Write("Ingresar Teléfono:");
             string phone = Console.ReadLine()!;
+
+
 
             Patient patient = new(id, name, age, address, phone);
             patient.Register();
-            Logger.LogInfo($"Patient {patient.Name} registered successfully.");
+
+            Logger.LogInfo($"Paciente registrado exitosamente: {patient}");
+
             return patient;
+
+
         }
 
         public void Add(List<Patient> patients, Patient patient)
         {
             if (patients.Any(p => p.Id == patient.Id))
             {
-                Console.WriteLine("⚠ A patient with this ID already exists.");
+                Console.WriteLine("⚠ Un paciente con esta identificación ya existe.");
                 return;
             }
 
             patients.Add(patient);
-            Console.WriteLine($"✅ Patient {patient.Name} added successfully.");
-            Logger.LogInfo($"Patient {patient.Name} added to the list.");
+            Console.WriteLine($" Paciente {patient.Name} añadido exitosamente");
+            Logger.LogInfo($"Paciente {patient.Name} añadido a la lista.");
         }
 
         public void ShowPatients(List<Patient> patients)
         {
-            Console.WriteLine("\n=== List of Patients ===");
+            Console.WriteLine("\n===Lista de pacientes ===");
 
             if (patients.Count == 0)
             {
-                Console.WriteLine("⚠ No patients registered.");
+                Console.WriteLine("⚠ No hay pacientes registrados.");
                 return;
             }
 

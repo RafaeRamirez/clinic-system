@@ -22,63 +22,63 @@ namespace VetClinic.Services
 
             if (_patients.Count == 0)
             {
-                Console.WriteLine("⚠ No patients available. Please register a patient first.");
+                Console.WriteLine("⚠ No hay pacientes disponibles. Por favor, registre a un paciente primero..");
                 return;
             }
 
-            Console.Write("Enter Patient ID: ");
+            Console.Write("Ingrese el ID del paciente:");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("❌ Invalid ID.");
+                Console.WriteLine(" Identificación inválida.");
                 return;
             }
 
             var patient = _patients.FirstOrDefault(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine("⚠ Patient not found.");
+                Console.WriteLine("⚠ Paciente no encontrada.");
                 return;
             }
 
-            Console.Write("Enter Pet ID: ");
+            Console.Write("Ingrese el ID de la mascota: ");
             if (!int.TryParse(Console.ReadLine(), out int petId))
             {
-                Console.WriteLine("❌ Invalid Pet ID.");
+                Console.WriteLine(" Identificación de mascota no válida.");
                 return;
             }
 
             if (patient.Pets.Any(p => p.Id == petId))
             {
-                Console.WriteLine("⚠ This patient already has a pet with that ID.");
+                Console.WriteLine("⚠ Esta paciente ya tiene una mascota con esa identificación.");
                 return;
             }
 
-            Console.Write("Enter Pet Name: ");
+            Console.Write("Ingrese el nombre de la mascota:");
             string petName = Console.ReadLine()!;
 
-            Console.Write("Enter Pet Age: ");
+            Console.Write("Ingrese la edad de la mascota: ");
             if (!int.TryParse(Console.ReadLine(), out int petAge))
             {
-                Console.WriteLine("❌ Invalid age for pet.");
+                Console.WriteLine(" Edad no válida para la mascota.");
                 return;
             }
 
-            Console.Write("Enter Pet Species: ");
+            Console.Write("Introduzca la especie de mascota: ");
             string species = Console.ReadLine()!;
 
-            Console.Write("Enter Pet Breed: ");
+            Console.Write("Ingrese la raza de su mascota: ");
             string breed = Console.ReadLine()!;
 
-            Console.Write("Enter Symptom (optional): ");
+            Console.Write("Ingrese el síntoma (opcional): ");
             string? symptomInput = Console.ReadLine();
             string? symptom = string.IsNullOrWhiteSpace(symptomInput) ? null : symptomInput.ToLower();
 
             Pet pet = new(petId, petName, petAge, species, breed, patient.Name, symptom);
             patient.Pets.Add(pet);
 
-            Console.WriteLine("\n✅ Registered Pet:");
+            Console.WriteLine("\n Mascota registrada:");
             pet.ShowInfo();
-            Logger.LogInfo($"Pet {pet.Name} registered for patient {patient.Name}.");
+            Logger.LogInfo($"Mascota {pet.Name} Registrada para la paciente {patient.Name}.");
         }
     }
 }

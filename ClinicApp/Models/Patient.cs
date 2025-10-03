@@ -4,7 +4,7 @@ using VetClinic.Interfaces;
 
 namespace VetClinic.Models
 {
-    public class Patient : IRegistrable, INotifiable
+    public class Patient : INotifiable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,14 +24,14 @@ namespace VetClinic.Models
 
         public void ShowInfo()
         {
-            Console.WriteLine($"\n👤 Patient: {Name}, Age: {Age}, Address: {Address}, Phone: [PROTECTED]");
+            Console.WriteLine($"\n👤 Paciente: {Name}, Edad: {Age}, DIRECCIÓN: {Address}, Teléfono: {Phone} [PROTEGIDO]");
             if (Pets.Count == 0)
             {
-                Console.WriteLine("⚠ No pets registered.");
+                Console.WriteLine("⚠ No se registran mascotas.");
             }
             else
             {
-                Console.WriteLine("🐾 Pets:");
+                Console.WriteLine("🐾 Mascotas:");
                 foreach (var pet in Pets)
                 {
                     pet.ShowInfo();
@@ -41,12 +41,17 @@ namespace VetClinic.Models
 
         public void Register()
         {
-            Console.WriteLine($"🔔 Patient {Name} has been registered.");
+            Console.WriteLine($"🔔 Paciente {Name} ha sido registrado");
         }
 
         public void Notify(string message)
         {
-            Console.WriteLine($"🔔 Notification to {Name}: {message}");
+            Console.WriteLine($"🔔 Notificación a {Name}: {message}");
+        }
+        
+          public override string ToString()
+        {
+            return $"ID: {Id}, Nombre: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}, Nº de mascotas: {Pets.Count}";
         }
     }
 }
