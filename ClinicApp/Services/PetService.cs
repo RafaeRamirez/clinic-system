@@ -1,58 +1,84 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VetClinic.Interfaces;
 using VetClinic.Models;
 using VetClinic.Utils;
 
 namespace VetClinic.Services
 {
-    public class PatientService : IRegistrable
+    public class PetService : IRegistrable
     {
+        private readonly List<Patient> _patients;
 
-
-        public void Register()
-
+        public PetService(List<Patient> patients)
         {
-            Console.WriteLine("\n=== Register Patient ===");
-
-            Console.Write("Enter Patient ID: ");
-            int id = int.Parse(Console.ReadLine()!);
-
-            Console.Write("Enter Name: ");
-            string name = Console.ReadLine()!;
-
-            Console.Write("Enter Age: ");
-            int age = int.Parse(Console.ReadLine()!);
-
-            Console.Write("Enter Address: ");
-            string address = Console.ReadLine()!;
-
-            Console.Write("Enter Phone: ");
-            string phone = Console.ReadLine()!;
-
-            Patient patient = new Patient(id, name, age, address, phone);
-            patient.Register();
-
-            Logger.LogInfo($"Patient {patient.Name} registered successfully.");
-
+            _patients = patients;
         }
 
-
-
-        public void ShowPatients(List<Patient> patients)
+        public void Register()
         {
-            Console.WriteLine("\n=== List of Patients ===");
+            Console.WriteLine("\n=== Register Pet for Patient (by Patient ID) ===");
 
-            if (patients.Count == 0)
+            if (_patients.Count == 0)
             {
-                Console.WriteLine("⚠ No patients registered.");
+                Console.WriteLine("⚠ No patients available. Please register a patient first.");
                 return;
             }
 
-            foreach (var patient in patients)
+            Console.Write("Enter Patient ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                patient.ShowInfo();
+                Console.WriteLine("❌ Invalid ID.");
+                return;
             }
+
+            var patient = _patients.FirstOrDefault(p => p.Id == patientId);
+            if (patient == null)
+            {
+                Console.WriteLine("⚠ Patient not found.");
+                return;
+            }
+
+            Console.Write("Enter Pet ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int petId))
+            {
+                Console.WriteLine("❌ Invalid Pet ID.");
+                return;
+            }
+
+            if (patient.Pets.Any(p => p.Id == petId))
+            {
+                Console.WriteLine("⚠ This patient already has a pet with that ID.");
+                return;
+            }
+
+            Console.Write("Enter Pet Name: ");
+            string petName = Console.ReadLine()!;
+
+            Console.Write("Enter Pet Age: ");
+            if (!int.TryParse(Console.ReadLine(), out int petAge))
+            {
+                Console.WriteLine("❌ Invalid age for pet.");
+                return;
+            }
+
+            Console.Write("Enter Pet Species: ");
+            string species = Console.ReadLine()!;
+
+            Console.Write("Enter Pet Breed: ");
+            string breed = Console.ReadLine()!;
+
+            Console.Write("Enter Symptom (optional): ");
+            string? symptomInput = Console.ReadLine();
+            string? symptom = string.IsNullOrWhiteSpace(symptomInput) ? null : symptomInput.ToLower();
+
+            Pet pet = new(petId, petName, petAge, species, breed, patient.Name, symptom);
+            patient.Pets.Add(pet);
+
+            Console.WriteLine("\n✅ Registered Pet:");
+            pet.ShowInfo();
+            Logger.LogInfo($"Pet {pet.Name} registered for patient {patient.Name}.");
         }
     }
 }

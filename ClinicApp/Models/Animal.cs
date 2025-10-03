@@ -2,7 +2,7 @@ using System;
 
 namespace VetClinic.Models
 {
-    // Base abstract class
+
     public abstract class Animal
     {
         public string Name { get; set; }

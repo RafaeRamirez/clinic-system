@@ -1,7 +1,9 @@
+using VetClinic.Models; 
+
 namespace VetClinic.Interfaces
 {
     public interface IRegistrable
     {
-        void Register();
+      void  Register();
     }
 }

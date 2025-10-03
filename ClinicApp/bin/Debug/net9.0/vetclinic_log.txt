@@ -1,0 +1,3 @@
+[INFO] 2/10/2025 6:23:33 p. m.: Patient rafael  registered successfully.
+[INFO] 2/10/2025 6:23:33 p. m.: Operation finished.
+[INFO] 2/10/2025 6:23:38 p. m.: Operation finished.

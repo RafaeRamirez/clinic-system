@@ -9,9 +9,9 @@ namespace VetClinic
 {
     public class Program
     {
-
-        private static readonly List<Patient> patients = new List<Patient>();
-        private static readonly PatientService patientService = new PatientService();
+        public static List<Patient> patients = new List<Patient>();
+        public static PatientService patientService = new PatientService();
+        public static PetService petService = new PetService(patients);
 
         public static void Main(string[] args)
         {
@@ -20,34 +20,44 @@ namespace VetClinic
             while (running)
             {
                 ShowMenu();
-                string option = Console.ReadLine()!;
+                string? option = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(option))
+                {
+                    Console.WriteLine("⚠ Por favor ingrese una opción válida (1-7).");
+                    continue;
+                }
 
                 try
                 {
                     switch (option)
                     {
                         case "1":
-                            patientService.Register(); 
-                  
+                            var patient = patientService.Register();
+                            if (patient != null)
+                            {
+                                patientService.Add(patients, patient);
+                            }
                             break;
 
                         case "2":
-                            // patientService.RegisterPetForPatientById(); 
+                            petService.Register();
+                            break;
 
                         case "3":
                             patientService.ShowPatients(patients);
                             break;
 
                         case "4":
-                            //  patientService.FindPet();
+                            // Implementar búsqueda de mascota
                             break;
 
                         case "5":
-                            //  patientService.MakePetsSounds();
+                            // Implementar sonidos de mascotas
                             break;
 
                         case "6":
-                            //  patientService.ShowServices();
+                            // Implementar servicios veterinarios
                             break;
 
                         case "7":
@@ -81,15 +91,15 @@ namespace VetClinic
 
         private static void ShowMenu()
         {
-            Console.WriteLine("\n=== Veterinary Clinic Menu ===");
-            Console.WriteLine("1. Register Patient");
-            Console.WriteLine("2. Register Pet");
-            Console.WriteLine("3. Show Patients");
-            Console.WriteLine("4. Search Pet");
-            Console.WriteLine("5. Make Pets Sounds");
-            Console.WriteLine("6. Veterinary Services");
+            Console.WriteLine("\n=== Menú de la Clínica Veterinaria ===");
+            Console.WriteLine("1. Registrar paciente");
+            Console.WriteLine("2. Registrar mascota");
+            Console.WriteLine("3. Mostrar pacientes");
+            Console.WriteLine("4. Buscar mascota");
+            Console.WriteLine("5. Hacer sonidos de mascotas");
+            Console.WriteLine("6. Servicios veterinarios");
             Console.WriteLine("7. Exit");
-            Console.Write(" Choose an option: ");
+            Console.Write("👉 Choose an option: ");
         }
     }
 }

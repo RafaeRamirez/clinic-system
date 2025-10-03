@@ -4,7 +4,7 @@ using VetClinic.Interfaces;
 
 namespace VetClinic.Models
 {
-    public class Patient : IRegistrable ,  INotifiable
+    public class Patient : IRegistrable, INotifiable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,26 +24,25 @@ namespace VetClinic.Models
 
         public void ShowInfo()
         {
-            Console.WriteLine($"👤 Patient: {Name}, Age: {Age}, Address: {Address}, Phone: [PROTECTED]");
+            Console.WriteLine($"\n👤 Patient: {Name}, Age: {Age}, Address: {Address}, Phone: [PROTECTED]");
             if (Pets.Count == 0)
             {
                 Console.WriteLine("⚠ No pets registered.");
-                return;
             }
-            Console.WriteLine("Pets:");
-            foreach (var pet in Pets)
+            else
             {
-                pet.ShowInfo();
+                Console.WriteLine("🐾 Pets:");
+                foreach (var pet in Pets)
+                {
+                    pet.ShowInfo();
+                }
             }
-        } 
-
-        public void Register()
-
-        {
-                Console.WriteLine($"🔔 Notification to {Name}");
         }
 
-        
+        public void Register()
+        {
+            Console.WriteLine($"🔔 Patient {Name} has been registered.");
+        }
 
         public void Notify(string message)
         {
