@@ -1,3 +1,6 @@
 [INFO] 2/10/2025 6:23:33 p. m.: Patient rafael  registered successfully.
 [INFO] 2/10/2025 6:23:33 p. m.: Operation finished.
 [INFO] 2/10/2025 6:23:38 p. m.: Operation finished.
+[INFO] 5/10/2025 12:59:08 p. m.: Paciente Rafa añadido a la lista.
+[INFO] 5/10/2025 12:59:08 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: Rafa, Edad: 24, Dirección: Abc, Teléfono: 132456, Nº de mascotas: 0
+[INFO] 5/10/2025 12:59:08 p. m.: Operation finished.

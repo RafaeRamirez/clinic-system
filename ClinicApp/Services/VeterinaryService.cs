@@ -2,16 +2,10 @@ using System;
 
 namespace VetClinic.Models
 {
-    public abstract class VeterinaryService
+    public abstract class VeterinaryService(string serviceName)
     {
-        public string ServiceName { get; private set; }
+        public string ServiceName { get; private set; } = serviceName;
 
-        protected VeterinaryService(string serviceName)
-        {
-            ServiceName = serviceName;
-        }
-
- 
         public abstract void Attend();
     }
 }

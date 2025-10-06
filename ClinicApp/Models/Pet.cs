@@ -2,30 +2,35 @@ using System;
 
 namespace VetClinic.Models
 {
-    public class Pet
+    public class Pet(int id, string name, int age, string species, string breed, int patientId, string? symptom = null) : Animal(name, age, species, symptom)
     {
-        public int Id { get; }
-        public string Name { get; }
-        public int Age { get; }
-        public string Species { get; }
-        public string Breed { get; }
-        public string OwnerName { get; }
-        public string? Symptom { get; }
+        private readonly int id = id;
+        private readonly string breed = breed;
+        private readonly int patientId = patientId;
 
-        public Pet(int id, string name, int age, string species, string breed, string ownerName, string? symptom = null)
+        public int Id => id;
+        public string Breed => breed;
+        public int PatientId => patientId;
+
+        public override void MakeSound()
         {
-            Id = id;
-            Name = name;
-            Age = age;
-            Species = species;
-            Breed = breed;
-            OwnerName = ownerName;
-            Symptom = symptom;
+            switch (Species)
+            {
+                case "Gato":
+                    Console.WriteLine("Miau");
+                    break;
+                case "Perro":
+                    Console.WriteLine("Guau");
+                    break;
+                default:
+                    Console.WriteLine("Algún sonido");
+                    break;
+            }
         }
 
-        public void ShowInfo()
+        public override void ShowInfo()
         {
-            Console.WriteLine($"🐶 Mascota: {Name}, Especies: {Species}, Criar: {Breed}, Edad: {Age}, Síntoma: {Symptom ?? "Ninguno"}");
+            Console.WriteLine($"🐶 Mascota: {Name}, Especie: {Species}, Raza: {Breed}, Edad: {Age}, Síntoma: {Symptom ?? "Ninguno"}");
         }
     }
 }

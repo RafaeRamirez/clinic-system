@@ -9,9 +9,8 @@ namespace VetClinic
 {
     public class Program
     {
-        public static List<Patient> patients = new List<Patient>();
         public static PatientService patientService = new PatientService();
-        public static PetService petService = new PetService(patients);
+        public static PetService petService = new PetService(patientService);
 
         public static void Main(string[] args)
         {
@@ -33,11 +32,7 @@ namespace VetClinic
                     switch (option)
                     {
                         case "1":
-                            var patient = patientService.Register();
-                            if (patient != null)
-                            {
-                                patientService.Add(patients, patient);
-                            }
+                             patientService.Register();
                             break;
 
                         case "2":
@@ -45,7 +40,7 @@ namespace VetClinic
                             break;
 
                         case "3":
-                            patientService.ShowPatients(patients);
+                            patientService.ShowPatients();
                             break;
 
                         case "4":

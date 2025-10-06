@@ -7,12 +7,19 @@
       "RelativeMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|solutionrelative:clinicapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|c:\\users\\user\\desktop\\clinic-system\\clinicapp\\interfaces\\iregistrable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|solutionrelative:clinicapp\\interfaces\\iregistrable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|c:\\users\\user\\desktop\\clinic-system\\clinicapp\\services\\petservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|solutionrelative:clinicapp\\services\\petservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|c:\\users\\user\\desktop\\clinic-system\\clinicapp\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|solutionrelative:clinicapp\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|c:\\users\\user\\desktop\\clinic-system\\clinicapp\\interfaces\\iregistrable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02E65CDE-FFDE-1621-C8D4-FA83E6B33FC5}|ClinicApp\\ClinicApp.csproj|solutionrelative:clinicapp\\interfaces\\iregistrable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,20 +29,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "PatientService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Services\\PatientService.cs",
+              "RelativeDocumentMoniker": "ClinicApp\\Services\\PatientService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Services\\PatientService.cs*",
+              "RelativeToolTip": "ClinicApp\\Services\\PatientService.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T18:00:51.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAAQVAAAAAAAAAAAnwBEVAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-10-05T17:57:21.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "IRegistrable.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Interfaces\\IRegistrable.cs",
               "RelativeDocumentMoniker": "ClinicApp\\Interfaces\\IRegistrable.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Interfaces\\IRegistrable.cs",
               "RelativeToolTip": "ClinicApp\\Interfaces\\IRegistrable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-02T23:22:10.34Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-02T23:22:10.34Z"
             },
             {
               "$type": "Document",
@@ -45,20 +77,20 @@
               "RelativeDocumentMoniker": "ClinicApp\\Program.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Program.cs",
               "RelativeToolTip": "ClinicApp\\Program.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAgwF8AAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-02T23:15:53.025Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PetService.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Services\\PetService.cs",
               "RelativeDocumentMoniker": "ClinicApp\\Services\\PetService.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\Services\\PetService.cs",
               "RelativeToolTip": "ClinicApp\\Services\\PetService.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAwwFoAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAwAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-02T23:16:38.201Z",
               "EditorCaption": ""
