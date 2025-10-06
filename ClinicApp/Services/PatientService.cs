@@ -45,12 +45,6 @@ namespace VetClinic.Services
         {
             Console.WriteLine("\n=== Registrar paciente ===");
 
-            // Console.Write("Ingrese el ID del paciente: ");
-            // if (!int.TryParse(Console.ReadLine(), out int id))
-            // {
-            //     Console.WriteLine(" ID inválida. Registro cancelado.");
-            //     return;
-            // }
             int id = count + 1;
             count++;
 
@@ -80,5 +74,30 @@ namespace VetClinic.Services
         {
             return patients;
         }
+
+        public void FindPatientById()
+        {
+            Console.Write("Ingrese el ID del paciente a buscar: ");
+            if (!int.TryParse(Console.ReadLine(), out int patientId))
+            {
+                Console.WriteLine("⚠ ID inválido. Intente nuevamente.");
+                return;
+            }
+
+            var patient = patients.FirstOrDefault(p => p.Id == patientId);
+
+            if (patient != null)
+            {
+                Console.WriteLine("\n👨 Paciente encontrado:");
+                patient.ShowInfo();
+                return;
+            }
+            
+             Console.WriteLine("⚠ No se encontró ningún paciente con ese ID.");
+        }
+
+
+
+
     }
 }

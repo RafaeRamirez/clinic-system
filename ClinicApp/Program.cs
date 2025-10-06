@@ -9,8 +9,10 @@ namespace VetClinic
 {
     public class Program
     {
+       
         public static PatientService patientService = new PatientService();
         public static PetService petService = new PetService(patientService);
+        public static DoctorService doctorService = new DoctorService(); 
 
         public static void Main(string[] args)
         {
@@ -23,7 +25,7 @@ namespace VetClinic
 
                 if (string.IsNullOrWhiteSpace(option))
                 {
-                    Console.WriteLine("⚠ Por favor ingrese una opción válida (1-7).");
+                    Console.WriteLine("⚠ Por favor ingrese una opción válida (1-8).");
                     continue;
                 }
 
@@ -32,7 +34,7 @@ namespace VetClinic
                     switch (option)
                     {
                         case "1":
-                             patientService.Register();
+                            patientService.Register();
                             break;
 
                         case "2":
@@ -40,28 +42,32 @@ namespace VetClinic
                             break;
 
                         case "3":
-                            patientService.ShowPatients();
+                            patientService.FindPatientById();
                             break;
 
                         case "4":
-                            // Implementar búsqueda de mascota
+                           petService.FindPetById();
                             break;
 
                         case "5":
-                            // Implementar sonidos de mascotas
+                            petService.MakeAllPetsSound();
                             break;
 
                         case "6":
-                            // Implementar servicios veterinarios
+                            doctorService.Register(); 
                             break;
 
                         case "7":
+                            ShowDoctors(); 
+                            break;
+
+                        case "8":
                             running = false;
-                            Console.WriteLine("👋 Exiting system...");
+                            Console.WriteLine("👋 Saliendo del sistema...");
                             break;
 
                         default:
-                            Console.WriteLine("⚠ Invalid option, please try again.");
+                            Console.WriteLine("⚠ Opción inválida, intenta de nuevo.");
                             break;
                     }
                 }
@@ -79,7 +85,7 @@ namespace VetClinic
                 }
                 finally
                 {
-                    Logger.LogInfo("Operation finished.");
+                    Logger.LogInfo("Operación finalizada.");
                 }
             }
         }
@@ -92,9 +98,27 @@ namespace VetClinic
             Console.WriteLine("3. Mostrar pacientes");
             Console.WriteLine("4. Buscar mascota");
             Console.WriteLine("5. Hacer sonidos de mascotas");
-            Console.WriteLine("6. Servicios veterinarios");
-            Console.WriteLine("7. Exit");
-            Console.Write("👉 Choose an option: ");
+            Console.WriteLine("6. Registrar doctor");       
+            Console.WriteLine("7. Mostrar doctores");      
+            Console.WriteLine("8. Salir");
+            Console.Write("👉 Elige una opción: ");
+        }
+
+        private static void ShowDoctors()
+        {
+            var doctors = doctorService.GetDoctors();
+
+            if (doctors.Count == 0)
+            {
+                Console.WriteLine("⚠ No hay doctores registrados aún.");
+                return;
+            }
+
+            Console.WriteLine("\n=== Lista de Doctores Registrados ===");
+            foreach (var doctor in doctors)
+            {
+                doctor.ShowInfo();
+            }
         }
     }
 }

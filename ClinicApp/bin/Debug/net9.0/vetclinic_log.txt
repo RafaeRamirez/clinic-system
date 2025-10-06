@@ -4,3 +4,17 @@
 [INFO] 5/10/2025 12:59:08 p. m.: Paciente Rafa añadido a la lista.
 [INFO] 5/10/2025 12:59:08 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: Rafa, Edad: 24, Dirección: Abc, Teléfono: 132456, Nº de mascotas: 0
 [INFO] 5/10/2025 12:59:08 p. m.: Operation finished.
+[INFO] 5/10/2025 8:51:03 p. m.: Paciente rafael  añadido a la lista.
+[INFO] 5/10/2025 8:51:03 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: rafael , Edad: 24, Dirección: carrera12c 7a-39, Teléfono: 3022128491, Nº de mascotas: 0
+[INFO] 5/10/2025 8:51:03 p. m.: Operation finished.
+[INFO] 5/10/2025 9:20:13 p. m.: Paciente rafael añadido a la lista.
+[INFO] 5/10/2025 9:20:13 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: rafael, Edad: 23, Dirección: carrera12c 7a-39, Teléfono: 3022128491, Nº de mascotas: 0
+[INFO] 5/10/2025 9:20:13 p. m.: Operation finished.
+[INFO] 5/10/2025 9:24:43 p. m.: Paciente rafaekl  añadido a la lista.
+[INFO] 5/10/2025 9:24:43 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: rafaekl , Edad: 24, Dirección: frfff, Teléfono: 30450550, Nº de mascotas: 0
+[INFO] 5/10/2025 9:24:43 p. m.: Operation finished.
+[INFO] 5/10/2025 9:27:17 p. m.: Paciente rafael  añadido a la lista.
+[INFO] 5/10/2025 9:27:17 p. m.: Paciente registrado exitosamente: ID: 1, Nombre: rafael , Edad: 20, Dirección: carrera, Teléfono: 20200933, Nº de mascotas: 0
+[INFO] 5/10/2025 9:27:17 p. m.: Operation finished.
+[INFO] 5/10/2025 9:27:52 p. m.: Mascota marlon Registrada para la paciente rafael .
+[INFO] 5/10/2025 9:27:52 p. m.: Operation finished.
