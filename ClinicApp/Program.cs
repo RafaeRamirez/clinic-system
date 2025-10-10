@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using VetClinic.Models;
 using VetClinic.Services;
 using VetClinic.Exceptions;
@@ -9,10 +8,11 @@ namespace VetClinic
 {
     public class Program
     {
-       
         public static PatientService patientService = new PatientService();
         public static PetService petService = new PetService(patientService);
-        public static DoctorService doctorService = new DoctorService(); 
+        public static VeterinarianService veterinarianService = new VeterinarianService();
+        public static AppointmentService appointmentService = new AppointmentService(veterinarianService);
+
 
         public static void Main(string[] args)
         {
@@ -25,7 +25,7 @@ namespace VetClinic
 
                 if (string.IsNullOrWhiteSpace(option))
                 {
-                    Console.WriteLine("⚠ Por favor ingrese una opción válida (1-8).");
+                    Console.WriteLine("⚠ Por favor ingrese una opción válida (1-10).");
                     continue;
                 }
 
@@ -46,7 +46,7 @@ namespace VetClinic
                             break;
 
                         case "4":
-                           petService.FindPetById();
+                            petService.FindPetById();
                             break;
 
                         case "5":
@@ -54,14 +54,22 @@ namespace VetClinic
                             break;
 
                         case "6":
-                            doctorService.Register(); 
+                            veterinarianService.Register();
                             break;
 
                         case "7":
-                            ShowDoctors(); 
+                            ShowDoctors();
                             break;
 
                         case "8":
+                            appointmentService.ScheduleAppointment(patientService.GetPatients());
+                            break;
+
+                        case "9":
+                            appointmentService.ShowAppointments();
+                            break;
+
+                        case "10":
                             running = false;
                             Console.WriteLine("👋 Saliendo del sistema...");
                             break;
@@ -73,15 +81,15 @@ namespace VetClinic
                 }
                 catch (PetNotFoundException ex)
                 {
-                    Logger.LogError("Pet not found", ex);
+                    Logger.LogError("Mascota no encontrada", ex);
                 }
                 catch (FormatException ex)
                 {
-                    Logger.LogError("Invalid input format", ex);
+                    Logger.LogError("Formato de entrada no válido", ex);
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError("Unexpected error", ex);
+                    Logger.LogError("Error inesperado", ex);
                 }
                 finally
                 {
@@ -98,15 +106,17 @@ namespace VetClinic
             Console.WriteLine("3. Mostrar pacientes");
             Console.WriteLine("4. Buscar mascota");
             Console.WriteLine("5. Hacer sonidos de mascotas");
-            Console.WriteLine("6. Registrar doctor");       
-            Console.WriteLine("7. Mostrar doctores");      
-            Console.WriteLine("8. Salir");
+            Console.WriteLine("6. Registrar doctor");
+            Console.WriteLine("7. Mostrar doctores");
+            Console.WriteLine("8. Agendar cita médica");
+            Console.WriteLine("9. Mostrar citas médicas");
+            Console.WriteLine("10. Salir");
             Console.Write("👉 Elige una opción: ");
         }
 
         private static void ShowDoctors()
         {
-            var doctors = doctorService.GetDoctors();
+            var doctors = veterinarianService.GetVeterinarians();
 
             if (doctors.Count == 0)
             {
