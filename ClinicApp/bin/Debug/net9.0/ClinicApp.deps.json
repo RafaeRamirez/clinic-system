@@ -7,10 +7,14 @@
   "targets": {
     ".NETCoreApp,Version=v9.0": {
       "ClinicApp/1.0.0": {
+        "dependencies": {
+          "System.Text.Json": "9.0.9"
+        },
         "runtime": {
           "ClinicApp.dll": {}
         }
-      }
+      },
+      "System.Text.Json/9.0.9": {}
     }
   },
   "libraries": {
@@ -18,6 +22,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "System.Text.Json/9.0.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NEnpppwq67fRz/OvQRxsEMgetDJsxlxpEsAFO/4PZYbAyAMd4Ol6KS7phc8uDoKPsnbdzRLKobpX303uQwCqdg==",
+      "path": "system.text.json/9.0.9",
+      "hashPath": "system.text.json.9.0.9.nupkg.sha512"
     }
   }
 }

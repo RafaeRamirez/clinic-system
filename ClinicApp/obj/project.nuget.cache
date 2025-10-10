@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TTqfJItE+yg=",
+  "dgSpecHash": "mzLP1041fr0=",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Desktop\\clinic-system\\ClinicApp\\ClinicApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\system.text.json\\9.0.9\\system.text.json.9.0.9.nupkg.sha512"
+  ],
   "logs": []
 }

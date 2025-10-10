@@ -9,35 +9,51 @@ namespace VetClinic.Services
     public class VeterinarianService : IRegistrable
     {
         private int count = 0;
-        private readonly List<Veterinarian> veterinarians = new List<Veterinarian>();
+        private readonly List<Patient> patients;
+        private readonly List<Veterinarian> veterinarians;
+        private readonly List<Appointment> appointments;
+        private readonly List<Pet> pets;
+
+        public VeterinarianService(
+            List<Patient> patients,
+            List<Veterinarian> veterinarians,
+            List<Appointment> appointments,
+            List<Pet> pets)
+        {
+            this.patients = patients;
+            this.veterinarians = veterinarians;
+            this.appointments = appointments;
+            this.pets = pets;
+            count = veterinarians.Count;
+        }
 
         public List<Veterinarian> GetVeterinarians() => veterinarians;
 
         public void Register()
         {
-            Console.WriteLine("\n=== Registrarse como veterinario ===");
+            Console.WriteLine("\n=== Registrar veterinario ===");
 
             int veterinarianId = ++count;
 
-            Console.Write("Introduzca el nombre del veterinario: ");
+            Console.Write("Ingrese el nombre del veterinario: ");
             string name = Console.ReadLine()!;
 
             Console.Write("Ingrese la especialidad: ");
             string specialty = Console.ReadLine()!;
 
-            Console.Write("Introduzca el número de teléfono: ");
+            Console.Write("Ingrese el número de teléfono: ");
             string phone = Console.ReadLine()!;
 
-      
-            Veterinarian veterinarian = new Veterinarian(veterinarianId, name, specialty, phone);
-
+            var veterinarian = new Veterinarian(veterinarianId, name, specialty, phone);
 
             veterinarians.Add(veterinarian);
 
-            Console.WriteLine("\n ¡Veterinario registrado exitosamente!");
+            DatabaseSimulator.SaveData(patients, veterinarians, appointments, pets);
+
+            Console.WriteLine("\n✅ Veterinario registrado exitosamente!");
             veterinarian.ShowInfo();
 
-            Logger.LogInfo($"Veterinario {veterinarian.Name} registrado con identificación {veterinarian.Id}.");
+            Logger.LogInfo($"Veterinario {veterinarian.Name} registrado con ID {veterinarian.Id}.");
         }
 
         public void ShowVeterinarians()

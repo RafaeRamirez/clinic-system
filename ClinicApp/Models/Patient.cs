@@ -4,32 +4,43 @@ using VetClinic.Interfaces;
 
 namespace VetClinic.Models
 {
-    public class Patient(int id, string name, int age, string address, string phone): INotifiable
+    public class Patient : INotifiable
     {
-        private readonly int id = id;
-        private string name = name;
-        private int age = age;
-        private string address = address;
-        private string phone = phone;
-        private List<Pet> pets = [];
+        // Constructor sin parámetros (necesario para deserializar)
+        public Patient() { }
 
-        public int Id => id;
-        public string Name { get => name; set => name = value; }
-        public int Age { get => age; set => age = value; }
-        public string Address { get => address; set => address = value; }
-        private string Phone { get => phone; set => phone = value; }
-        public List<Pet> Pets { get => pets; set => pets = value; }
+        
+
+        // Constructor principal
+        public Patient(int id, string name, int age, string address, string phone)
+        {
+            Id = id;
+            Name = name;
+            Age = age;
+            Address = address;
+            Phone = phone;
+            Pets = new List<Pet>();
+        }
+
+        // Propiedades públicas con get/set (requeridas para JSON)
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+        public string Address { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public List<Pet> Pets { get; set; } = new();
+
         public void ShowInfo()
         {
-            Console.WriteLine($"\n👤 Paciente: {name}, Edad: {age}, DIRECCIÓN: {address}, Teléfono: {phone} [PROTEGIDO]");
-            if (pets.Count == 0)
+            Console.WriteLine($"\n👤 Paciente: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}");
+            if (Pets.Count == 0)
             {
                 Console.WriteLine("⚠ No se registran mascotas.");
             }
             else
             {
                 Console.WriteLine("🐾 Mascotas:");
-                foreach (var pet in pets)
+                foreach (var pet in Pets)
                 {
                     pet.ShowInfo();
                 }
@@ -40,8 +51,8 @@ namespace VetClinic.Models
         {
             Console.WriteLine($"🔔 Notificación a {Name}: {message}");
         }
-        
-          public override string ToString()
+
+        public override string ToString()
         {
             return $"ID: {Id}, Nombre: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}, Nº de mascotas: {Pets.Count}";
         }
