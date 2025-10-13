@@ -76,7 +76,7 @@ Works on Windows, Linux, and macOS
 
 Clone the repository:
 
-git clone https://github.com/your-username/clinic-system.git
+git clone https://github.com/RafaeRamirez/clinic-system.git
 
 
 Navigate to the project folder:
@@ -140,6 +140,5 @@ Persistent local data storage
 Developed by: Rafael augusto ramirez bolaño 
 clan: caiman
 route C#
-📧 Contact: [rafar1129@gmail.com
-]
-📅 Year: 2025
+📧 Contact: rafar1129@gmail.com
+📅 Year: 13/10/2025
