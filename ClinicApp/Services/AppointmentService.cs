@@ -6,99 +6,107 @@ using VetClinic.Utils;
 
 namespace VetClinic.Services
 {
+    // Manages medical appointments between patients, pets, and veterinarians
     public class AppointmentService
     {
-        private readonly List<Appointment> appointments = new();
-        private int count = 0;
-        private readonly VeterinarianService veterinarianService;
+        private readonly List<Appointment> appointments = new(); // Stores all appointments
+        private int count = 0; // Tracks unique appointment IDs
+        private readonly VeterinarianService veterinarianService; // Reference to the veterinarian service
 
+        // Constructor: links this service to the veterinarian service
         public AppointmentService(VeterinarianService vetService)
         {
             veterinarianService = vetService;
         }
 
+        // Creates and schedules a new appointment
         public void ScheduleAppointment(List<Patient> patients)
         {
-            Console.WriteLine("\n=== Programar cita ===");
+            Console.WriteLine("\n=== Schedule Appointment ===");
 
+            // Ensure there are patients in the system
             if (patients.Count == 0)
             {
-                Console.WriteLine("⚠ No hay pacientes registrados.");
+                Console.WriteLine("⚠ No patients registered.");
                 return;
             }
 
-            Console.Write("Ingrese el ID del paciente: ");
+            // Ask for a valid patient ID
+            Console.Write("Enter patient ID: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("⚠ ID de paciente no válido.");
+                Console.WriteLine("⚠ Invalid patient ID.");
                 return;
             }
 
             var patient = patients.FirstOrDefault(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine("⚠ Paciente no encontrado.");
+                Console.WriteLine("⚠ Patient not found.");
                 return;
             }
 
+            // Validate that the patient owns at least one pet
             if (patient.Pets.Count == 0)
             {
-                Console.WriteLine("⚠ Este paciente no tiene mascotas registradas.");
+                Console.WriteLine("⚠ This patient has no registered pets.");
                 return;
             }
 
-            Console.Write("Ingrese el ID de la mascota: ");
+            // Ask for a valid pet ID
+            Console.Write("Enter pet ID: ");
             if (!int.TryParse(Console.ReadLine(), out int petId))
             {
-                Console.WriteLine("⚠ ID de mascota no válido.");
+                Console.WriteLine("⚠ Invalid pet ID.");
                 return;
             }
 
             var pet = patient.Pets.FirstOrDefault(p => p.Id == petId);
             if (pet == null)
             {
-                Console.WriteLine("⚠ Mascota no encontrada.");
+                Console.WriteLine("⚠ Pet not found.");
                 return;
             }
 
-            // ✅ Validar veterinario existente
+            // Verify that there are registered veterinarians
             var veterinarians = veterinarianService.GetVeterinarians();
             if (veterinarians.Count == 0)
             {
-                Console.WriteLine("⚠ No hay veterinarios registrados. Registre uno primero.");
+                Console.WriteLine("⚠ No veterinarians available. Please register one first.");
                 return;
             }
 
-            Console.Write("Ingrese el ID del veterinario: ");
+            // Ask for a valid veterinarian ID
+            Console.Write("Enter veterinarian ID: ");
             if (!int.TryParse(Console.ReadLine(), out int vetId))
             {
-                Console.WriteLine("⚠ ID de veterinario no válido.");
+                Console.WriteLine("⚠ Invalid veterinarian ID.");
                 return;
             }
 
             var vet = veterinarians.FirstOrDefault(v => v.Id == vetId);
             if (vet == null)
             {
-                Console.WriteLine("⚠ Veterinario no encontrado.");
+                Console.WriteLine("⚠ Veterinarian not found.");
                 return;
             }
 
-            // ✅ Validar formato de fecha y hora
-            Console.Write("Ingrese la fecha y hora de la cita (formato: yyyy-MM-dd HH:mm): ");
+            // Validate date and time format
+            Console.Write("Enter appointment date and time (format: yyyy-MM-dd HH:mm): ");
             string inputDate = Console.ReadLine()!;
             if (!DateTime.TryParseExact(inputDate, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out DateTime appointmentDate))
             {
-                Console.WriteLine("⚠ Formato de fecha no válido. Use: yyyy-MM-dd HH:mm");
+                Console.WriteLine("⚠ Invalid date format. Use: yyyy-MM-dd HH:mm");
                 return;
             }
 
             if (appointmentDate < DateTime.Now)
             {
-                Console.WriteLine("⚠ No puedes programar una cita en el pasado.");
+                Console.WriteLine("⚠ You cannot schedule an appointment in the past.");
                 return;
             }
 
-            // 🚫 Validar si ya hay una cita en ese horario para ese veterinario o mascota
+            // Prevent scheduling conflicts
             bool conflictingAppointment = appointments.Any(a =>
                 a.AppointmentDate == appointmentDate &&
                 (a.VetName == vet.Name || (a.PatientId == patientId && a.PetId == petId))
@@ -106,32 +114,34 @@ namespace VetClinic.Services
 
             if (conflictingAppointment)
             {
-                Console.WriteLine("⚠ Ya existe una cita en esa fecha y hora con ese veterinario o para esa mascota.");
+                Console.WriteLine("⚠ There is already an appointment scheduled at that time for this veterinarian or pet.");
                 return;
             }
 
-            Console.Write("Introduzca el motivo de la cita: ");
+            // Ask for the reason for the appointment
+            Console.Write("Enter appointment reason: ");
             string reason = Console.ReadLine()!;
 
-            // ✅ Crear y agregar la cita
+            // Create and add the new appointment
             var appointment = new Appointment(++count, patientId, petId, appointmentDate, reason, vet.Name);
             appointments.Add(appointment);
 
-            Console.WriteLine("\n✅ Cita programada con éxito!");
+            Console.WriteLine("\n✅ Appointment successfully scheduled!");
             appointment.ShowInfo();
 
-            // ✅ Notificación automática
-            patient.Notify($"Cita programada para {appointmentDate:g} con el Dr. {vet.Name}");
-            Logger.LogInfo($"Cita programada para el paciente {patient.Name} con el Dr. {vet.Name} el {appointmentDate:g}.");
+            // Automatic notification for the patient
+            patient.Notify($"Appointment scheduled for {appointmentDate:g} with Dr. {vet.Name}");
+            Logger.LogInfo($"Appointment scheduled: Patient {patient.Name}, Dr. {vet.Name}, {appointmentDate:g}.");
         }
 
+        // Displays all scheduled appointments
         public void ShowAppointments()
         {
-            Console.WriteLine("\n=== Lista de citas ===");
+            Console.WriteLine("\n=== Appointments List ===");
 
             if (appointments.Count == 0)
             {
-                Console.WriteLine("⚠ No hay citas registradas.");
+                Console.WriteLine("⚠ No appointments registered.");
                 return;
             }
 

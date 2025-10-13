@@ -7,14 +7,16 @@ using VetClinic.Utils;
 
 namespace VetClinic.Services
 {
+    // Handles all patient management operations
     public class PatientService : IRegistrable
     {
-        private int count = 0;
-        private readonly List<Patient> patients;
-        private readonly List<Veterinarian> veterinarians;
-        private readonly List<Appointment> appointments;
-        private readonly List<Pet> pets;
+        private int count = 0; // Tracks the number of patients
+        private readonly List<Patient> patients; // List of all patients
+        private readonly List<Veterinarian> veterinarians; // Reference to all veterinarians
+        private readonly List<Appointment> appointments; // Reference to all appointments
+        private readonly List<Pet> pets; // Reference to all pets
 
+        // Constructor initializes patient service with existing lists
         public PatientService(
             List<Patient> patients,
             List<Veterinarian> veterinarians,
@@ -28,22 +30,23 @@ namespace VetClinic.Services
             count = patients.Count;
         }
 
+        // Adds a new patient and saves to simulated database
         private void Add(Patient patient)
         {
             if (patients.Any(p => p.Id == patient.Id))
             {
-                Console.WriteLine("⚠ Ya existe un paciente con esta identificación.");
+                Console.WriteLine("⚠ Un paciente con esta identificación ya existe..");
                 return;
             }
 
             patients.Add(patient);
-
             DatabaseSimulator.SaveData(patients, veterinarians, appointments, pets);
 
-            Console.WriteLine($" Paciente {patient.Id} {patient.Name} añadido exitosamente.");
-            Logger.LogInfo($"Paciente {patient.Name}  añadido a la lista.");
+            Console.WriteLine($"Paciente {patient.Id} {patient.Name} añadido exitosamente");
+            Logger.LogInfo($"Paciente {patient.Name} añadido a la lista.");
         }
 
+        // Displays all registered patients
         public void ShowPatients()
         {
             Console.WriteLine("\n=== Lista de pacientes ===");
@@ -60,139 +63,140 @@ namespace VetClinic.Services
             }
         }
 
+        // Registers a new patient via console input
         public void Register()
         {
-            Console.WriteLine("\n=== Registrar paciente ===");
+            Console.WriteLine("\n=== Registrar nuevo paciente ===");
 
             int id = ++count;
 
-            Console.Write("Introducir nombre: ");
+            Console.Write("Introduzca el nombre: ");
             string name = Console.ReadLine()!;
 
-            Console.Write("Ingrese edad: ");
+            Console.Write("Introduzca la edad:");
             if (!int.TryParse(Console.ReadLine(), out int age))
             {
-                Console.WriteLine("⚠ Edad no válida. Registro cancelado.");
+                Console.WriteLine("⚠ Edad no válida. Registro cancelado..");
                 return;
             }
 
             Console.Write("Introducir dirección: ");
             string address = Console.ReadLine()!;
 
-            Console.Write("Ingresar teléfono: ");
+            Console.Write("Introduzca el número de teléfono: ");
             string phone = Console.ReadLine()!;
 
             Patient patient = new(id, name, age, address, phone);
             Add(patient);
-            Logger.LogInfo($"Paciente registrado exitosamente: {patient.Id} {patient.Name}");
+            Logger.LogInfo($"Paciente registrado con éxito: {patient.Id} {patient.Name}");
         }
 
-        public List<Patient> GetPatients()
-        {
-            return patients;
-        }
+        // Returns list of all patients (used by other services)
+        public List<Patient> GetPatients() => patients;
 
+        // Edits patient data by ID
         public void EditPatientById()
         {
-            Console.Write("\nIngrese el ID del paciente que desea editar: ");
+            Console.Write("\nIntroduzca el ID del paciente a editar: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("⚠ ID inválido, intente nuevamente.");
+                Console.WriteLine("⚠ ID no válida, por favor inténtelo de nuevo.");
                 return;
             }
 
             var patient = patients.FirstOrDefault(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine("⚠ No se encontró ningún paciente con ese ID.");
+                Console.WriteLine("⚠ Ningún paciente encontrado con esa identificación.");
                 return;
             }
 
-            Console.WriteLine($"\nEditando paciente: {patient.Name}");
-            Console.WriteLine($"Edad actual: {patient.Age}, Dirección: {patient.Address}, Teléfono: [PROTEGIDO]");
+            Console.WriteLine($"\nEdición de paciente: {patient.Name}");
+            Console.WriteLine($"Edad actual: {patient.Age}, DIRECCIÓN:{patient.Address}, Teléfono: [PROTECTED]");
 
-            Console.Write("¿Desea cambiar el nombre? (s/n): ");
-            if (Console.ReadLine()?.Trim().ToLower() == "s")
+            Console.Write("¿Cambiar nombre? (y/n): ");
+            if (Console.ReadLine()?.Trim().ToLower() == "y")
             {
                 Console.Write("Nuevo nombre: ");
                 patient.Name = Console.ReadLine()!;
             }
 
-            Console.Write("¿Desea cambiar la edad? (s/n): ");
-            if (Console.ReadLine()?.Trim().ToLower() == "s")
+            Console.Write("¿Cambiar de edad? (y/n): ");
+            if (Console.ReadLine()?.Trim().ToLower() == "y")
             {
-                Console.Write("Nueva edad: ");
+                Console.Write("Nueva edad ");
                 if (int.TryParse(Console.ReadLine(), out int newAge))
                     patient.Age = newAge;
                 else
-                    Console.WriteLine("⚠ Edad no válida. Se mantiene la anterior.");
+                    Console.WriteLine("⚠ Edad no válida. Se mantiene el valor anterior.");
             }
 
-            Console.Write("¿Desea cambiar la dirección? (s/n): ");
-            if (Console.ReadLine()?.Trim().ToLower() == "s")
+            Console.Write("¿Cambiar de dirección? (y/n): ");
+            if (Console.ReadLine()?.Trim().ToLower() == "y")
             {
                 Console.Write("Nueva dirección: ");
                 patient.Address = Console.ReadLine()!;
             }
 
-            Console.Write("¿Desea cambiar el teléfono? (s/n): ");
-            if (Console.ReadLine()?.Trim().ToLower() == "s")
+            Console.Write("¿Cambiar número de teléfono? (y/n): ");
+            if (Console.ReadLine()?.Trim().ToLower() == "y")
             {
-                Console.Write("Nuevo teléfono: ");
+                Console.Write("Nuevo teléfono:");
                 patient.Phone = Console.ReadLine()!;
             }
 
-            //  Guardar todos los datos actualizados
             DatabaseSimulator.SaveData(patients, veterinarians, appointments, pets);
 
-            Console.WriteLine($"\n Paciente {patient.Name} actualizado correctamente.");
-            Console.WriteLine(" Los datos se han guardado en la base de datos simulada.");
-            Logger.LogInfo($"Paciente {patient.Name} actualizado correctamente.");
+            Console.WriteLine($"\nPaciente{patient.Name}actualizado exitosamente");
+            Logger.LogInfo($"Paciente{patient.Name}actualizado exitosamente");
         }
 
+        // Deletes a patient and their related data
         public void DeletePatientById()
         {
-            Console.Write("\nIngrese el ID del paciente que desea eliminar: ");
+            Console.Write("\nIntroduzca el ID del paciente a eliminar: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("ID inválido, intente nuevamente.");
+                Console.WriteLine("⚠ ID no válida, por favor inténtelo de nuevo.");
                 return;
             }
-            var patient = patients.FirstOrDefault(p => p.Id == patientId);
 
+            var patient = patients.FirstOrDefault(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine("No se encontró ningún paciente con ese ID.");
+                Console.WriteLine("Ningún paciente encontrado con esa identificación.");
                 return;
             }
-            Console.WriteLine($"\n¿Está seguro de que desea eliminar al paciente {patient.Name}? (s/n): ");
-            if (Console.ReadLine()?.Trim().ToLower() != "s")
+
+            Console.Write($"\n¿Estás seguro de que quieres eliminar al paciente? {patient.Name}? (y/n): ");
+            if (Console.ReadLine()?.Trim().ToLower() != "y")
             {
-                Console.WriteLine("Operación cancelada. No se eliminó ningún registro.");
+                Console.WriteLine("Operación cancelada. No se eliminaron registros.");
                 return;
             }
-            //  Eliminar al paciente y todas sus mascotas
+
+            // Remove patient, pets, and appointments
             patients.Remove(patient);
             pets.RemoveAll(p => p.PatientId == patientId);
             appointments.RemoveAll(a => a.PatientId == patient.Id);
 
-            // Guardar los cambios
             DatabaseSimulator.SaveData(patients, veterinarians, appointments, pets);
 
-            Console.WriteLine($" Paciente  {patient.Name} eliminado correctamente.");
-            Logger.LogInfo($"Paciente  {patient.Name} y sus registros asociados fueron eliminados.");
+            Console.WriteLine($"Paciente {patient.Name} eliminado exitosamente");
+            Logger.LogInfo($"Paciente{patient.Name} y registros relacionados eliminados.");
         }
+
+        // Finds and displays patient by ID
         public void FindPatientById()
         {
-            Console.Write("Ingrese el ID del paciente a buscar: ");
+            Console.Write("Introduzca el ID del paciente para buscar: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("⚠ ID inválido. Intente nuevamente.");
+                Console.WriteLine("⚠ ID no válido. Inténtalo de nuevo.");
                 return;
             }
 
             var patient = patients.FirstOrDefault(p => p.Id == patientId);
-
             if (patient != null)
             {
                 Console.WriteLine("\n👤 Paciente encontrado:");
@@ -200,7 +204,7 @@ namespace VetClinic.Services
             }
             else
             {
-                Console.WriteLine("⚠ No se encontró ningún paciente con ese ID.");
+                Console.WriteLine("⚠ Ningún paciente encontrado con esa identificación.");
             }
         }
     }

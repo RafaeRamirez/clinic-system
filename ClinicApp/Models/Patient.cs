@@ -4,14 +4,13 @@ using VetClinic.Interfaces;
 
 namespace VetClinic.Models
 {
+    // Represents a clinic patient who owns one or more pets
     public class Patient : INotifiable
     {
-        // Constructor sin parámetros (necesario para deserializar)
+        // Parameterless constructor (required for JSON deserialization)
         public Patient() { }
 
-        
-
-        // Constructor principal
+        // Main constructor used when creating a new patient
         public Patient(int id, string name, int age, string address, string phone)
         {
             Id = id;
@@ -22,7 +21,7 @@ namespace VetClinic.Models
             Pets = new List<Pet>();
         }
 
-        // Propiedades públicas con get/set (requeridas para JSON)
+        // Public properties (needed for JSON serialization)
         public int Id { get; set; }
         public string Name { get; set; } = "";
         public int Age { get; set; }
@@ -30,16 +29,18 @@ namespace VetClinic.Models
         public string Phone { get; set; } = "";
         public List<Pet> Pets { get; set; } = new();
 
+        // Displays full patient information and their registered pets
         public void ShowInfo()
         {
-            Console.WriteLine($"\n👤 Paciente: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}");
+            Console.WriteLine($"\n👤 Patient: {Name}, Age: {Age}, Address: {Address}, Phone: {Phone}");
+
             if (Pets.Count == 0)
             {
-                Console.WriteLine("⚠ No se registran mascotas.");
+                Console.WriteLine("⚠ No pets registered.");
             }
             else
             {
-                Console.WriteLine("🐾 Mascotas:");
+                Console.WriteLine("🐾 Pets:");
                 foreach (var pet in Pets)
                 {
                     pet.ShowInfo();
@@ -47,14 +48,17 @@ namespace VetClinic.Models
             }
         }
 
+        // Sends a notification message to the patient
         public void Notify(string message)
         {
-            Console.WriteLine($"🔔 Notificación a {Name}: {message}");
+            Console.WriteLine($"🔔 Notification to {Name}: {message}");
         }
 
+        // Returns a simple text summary of patient information
         public override string ToString()
         {
-            return $"ID: {Id}, Nombre: {Name}, Edad: {Age}, Dirección: {Address}, Teléfono: {Phone}, Nº de mascotas: {Pets.Count}";
+            return $"ID: {Id}, Name: {Name}, Age: {Age}, Address: {Address}, Phone: {Phone}, Pets: {Pets.Count}";
         }
     }
 }
+

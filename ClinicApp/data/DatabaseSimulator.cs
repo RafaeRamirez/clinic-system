@@ -8,15 +8,17 @@ namespace VetClinic.Utils
 {
     public static class DatabaseSimulator
     {
+        // Path of the JSON file used as the database
         private static readonly string filePath = "clinic_database.json";
 
-        // Guarda pacientes, veterinarios, citas y mascotas
+        // Saves patients, veterinarians, appointments, and pets to a JSON file
         public static void SaveData(
             List<Patient> patients,
             List<Veterinarian> veterinarians,
             List<Appointment> appointments,
             List<Pet> pets)
         {
+            // Create an anonymous object to store all data
             var data = new
             {
                 Patients = patients,
@@ -25,26 +27,33 @@ namespace VetClinic.Utils
                 Pets = pets
             };
 
+            // Convert data to JSON with indentation
             var json = JsonSerializer.Serialize(data, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
 
+            // Write JSON content to file
             File.WriteAllText(filePath, json);
         }
 
-        // Carga todos los datos del archivo JSON
+        // Loads all data from the JSON file
         public static (List<Patient>, List<Veterinarian>, List<Appointment>, List<Pet>) LoadData()
         {
+            // Check if the JSON file exists
             if (!File.Exists(filePath))
             {
-                Console.WriteLine("⚠ No se encontró la base de datos. Se creará una nueva.");
+                Console.WriteLine("⚠ Database file not found. A new one will be created.");
                 return (new List<Patient>(), new List<Veterinarian>(), new List<Appointment>(), new List<Pet>());
             }
 
+            // Read JSON content from the file
             var json = File.ReadAllText(filePath);
+
+            // Deserialize JSON into the DatabaseData structure
             var data = JsonSerializer.Deserialize<DatabaseData>(json);
 
+            // Return lists or new empty ones if null
             return (
                 data?.Patients ?? new List<Patient>(),
                 data?.Veterinarians ?? new List<Veterinarian>(),
@@ -53,7 +62,7 @@ namespace VetClinic.Utils
             );
         }
 
-        // Clase interna para estructurar el JSON
+        // Internal class that defines the structure of the stored data
         private class DatabaseData
         {
             public List<Patient>? Patients { get; set; }

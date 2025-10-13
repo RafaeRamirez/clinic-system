@@ -1,6 +1,35 @@
 {
-  "Patients": [],
+  "Patients": [
+    {
+      "Id": 1,
+      "Name": "jorge ",
+      "Age": 35,
+      "Address": "sabalarga ",
+      "Phone": "302128499",
+      "Pets": [
+        {
+          "Id": 1,
+          "Breed": "labrador ",
+          "PatientId": 1,
+          "Name": "rosa",
+          "Age": 3,
+          "Species": "Perro ",
+          "Symptom": "tos fiebre "
+        }
+      ]
+    }
+  ],
   "Veterinarians": [],
   "Appointments": [],
-  "Pets": []
+  "Pets": [
+    {
+      "Id": 1,
+      "Breed": "labrador ",
+      "PatientId": 1,
+      "Name": "rosa",
+      "Age": 3,
+      "Species": "Perro ",
+      "Symptom": "tos fiebre "
+    }
+  ]
 }

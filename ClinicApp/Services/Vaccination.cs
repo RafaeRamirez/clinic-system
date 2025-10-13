@@ -2,13 +2,16 @@ using System;
 
 namespace VetClinic.Models
 {
+    // Represents a specific veterinary service: Vaccination
     public class Vaccination : VeterinaryService
     {
+        // Constructor: defines this service as "Vaccination"
         public Vaccination() : base("Vacunación") { }
 
+        // Executes the vaccination procedure logic
         public override void Attend()
         {
-            Console.WriteLine("Aplicación de la vacuna a la mascota...");
+            Console.WriteLine("Aplicando la vacuna a la mascota...");
         }
     }
 }
